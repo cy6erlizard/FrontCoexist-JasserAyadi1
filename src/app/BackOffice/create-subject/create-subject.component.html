@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="card col-md-6 offset-3 mt-2">
+    <div class="card-header">New Subject</div>
+    <div class="card-body">
+      <form [formGroup]="newSubjectFormGroup" (ngSubmit)="handleSaveSubject()">
+        <div class="mb-3">
+          <label class="form-label">Subject Title:</label>
+          <input type="text" formControlName="subjectTitle" class="form-control">
+          <span class="text-danger"
+                *ngIf="newSubjectFormGroup.controls['subjectTitle'].touched
+                && newSubjectFormGroup.controls['subjectTitle'].errors
+                && newSubjectFormGroup.controls['subjectTitle'].errors!['required']">
+            Subject Title is Required
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Date:</label>
+          <input type="date" formControlName="date" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Content:</label>
+          <textarea formControlName="content" class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Image URL:</label>
+          <input type="text" formControlName="image" class="form-control">
+        </div>
+        <!-- Add other fields as needed based on your requirements -->
+        <button [disabled]="!newSubjectFormGroup.valid" class="btn btn-info">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

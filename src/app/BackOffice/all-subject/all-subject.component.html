@@ -1,0 +1,50 @@
+<div>
+  <div class="subject-grid">
+    <div *ngFor="let subject of allSubjects" class="subject-container">
+      <!-- Subject details -->
+      <h3 class="subject-title">{{ subject.subjectTitle }}</h3>
+      <p class="subject-date">{{ subject.date | date:'medium' }}</p>
+      <p class="subject-content">{{ subject.content }}</p>
+      <img [src]="subject.image" alt="Image du sujet" class="subject-image">
+      
+      <!-- Like and dislike buttons -->
+      <div class="like-dislike-container">
+        <button (click)="likeSubject(subject)" class="like-button">
+          <i class="far fa-thumbs-up"></i> {{ subject.likes }}
+        </button>
+        <button (click)="dislikeSubject(subject)" class="dislike-button">
+          <i class="far fa-thumbs-down"></i> {{ subject.dislikes }}
+        </button>
+      </div>
+      
+      <!-- Comments section -->
+      <div class="comments-section">
+        <h4 class="comments-heading">Comments :</h4>
+        <ul class="comments-list">
+          <li *ngFor="let comment of subject.comments" class="comment-item">
+            {{ comment.content }} - {{ comment.timestamp | date }}
+            <!-- Update and delete buttons for each comment -->
+            <button (click)="toggleEditComment(comment)" class="edit-button">Edit</button>
+            <button (click)="deleteComment(comment)" class="delete-button">Delete</button>
+          </li>
+        </ul>
+        
+        <!-- Input field for adding a new comment -->
+        <div *ngIf="subject.showCommentInput" class="add-comment-container">
+          <input type="text" [(ngModel)]="newCommentContent" placeholder="Add a comment..." class="comment-input">
+          <button (click)="addComment(subject)" class="submit-button">Submit</button>
+        </div>
+        
+        <!-- Button to toggle the comment input field -->
+        <button (click)="toggleCommentInput(subject)" class="add-comment-button">Add Comment</button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="allSubjects.length === 0">
+    <p>Aucun sujet n'est disponible pour le moment.</p>
+  </div>
+  
+  <button (click)="redirectToCreateSubject()" class="create-button">Create Subject</button>
+  
+</div>
